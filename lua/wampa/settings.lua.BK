@@ -1,4 +1,4 @@
--- ~/.config/nvim/init.lua
+-- ~/.config/nvim/lua/wampa/settings.lua
 
 -- Define global variables
 local vim = vim
