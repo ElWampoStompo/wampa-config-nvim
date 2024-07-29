@@ -1,21 +1,32 @@
 -- ~/nvim/lua/wampa/plugins/cmp.lua
 
+-- This file sets up the nvim-cmp plugin for code completion in Neovim.
+-- It is part of the Wampa configuration for lazy.nvim.
+
 -- Return a table to be used by lazy.nvim for plugin setup
 return {
-    "hrsh7th/nvim-cmp", -- Main completion plugin
-    event = "InsertEnter", -- Load plugin on entering insert mode
+    -- The main completion plugin
+    "hrsh7th/nvim-cmp",
+    -- Load the plugin when entering insert mode
+    event = "InsertEnter",
     dependencies = {
-        "hrsh7th/cmp-buffer", -- Source for text in buffer
-        "hrsh7th/cmp-path", -- Source for file system paths
+        -- Source for text in the current buffer
+        "hrsh7th/cmp-buffer",
+        -- Source for file system paths
+        "hrsh7th/cmp-path",
+        -- Snippet plugin for code snippets
         {
             "L3MON4D3/LuaSnip",
             version = "v2.*", -- Specify version
             -- Install jsregexp (optional)
             build = "make install_jsregexp",
         },
-        "rafamadriz/friendly-snippets", -- Collection of snippets
-        "onsails/lspkind.nvim", -- VS Code-like pictograms
-        "Exafunction/codeium.vim", -- AI code completion
+        -- Collection of friendly code snippets
+        "rafamadriz/friendly-snippets",
+        -- VS Code-like pictograms for completion items
+        "onsails/lspkind.nvim",
+        -- AI code completion plugin
+        "Exafunction/codeium.vim",
     },
     config = function()
         -- Import required modules
@@ -35,6 +46,7 @@ return {
                 end,
             },
             mapping = cmp.mapping.preset.insert({
+                -- Key mappings for code completion
                 ["<C-d>"] = cmp.mapping.scroll_docs(-4), -- Scroll docs up
                 ["<C-f>"] = cmp.mapping.scroll_docs(4), -- Scroll docs down
                 ["<C-Space>"] = cmp.mapping.complete(), -- Trigger completion
@@ -45,11 +57,12 @@ return {
                 }),
             }),
             sources = cmp.config.sources({
+                -- Sources for code completion
                 { name = "nvim_lsp" }, -- LSP source
+                { name = "codeium" }, -- AI code completion source
                 { name = "luasnip" }, -- Snippet source
                 { name = "buffer" }, -- Buffer source
                 { name = "path" }, -- Path source
-                { name = "codeium" }, -- AI code completion source
             }),
         })
 
@@ -63,11 +76,3 @@ return {
         -- NOTE: Adjust key mappings as per your workflow.
     end,
 }
-
--- Possible Improvements:
--- 1. Add more sources for completion, such as spell checking or tags.
--- 2. Customize the appearance of the completion menu using lspkind or other plugins.
--- 3. Fine-tune the snippet expansion behavior to suit specific needs.
--- 4. Explore additional key mappings for better navigation and control.
--- 5. Regularly check for updates to the plugins and adjust configurations accordingly.
-
